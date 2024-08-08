@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
@@ -14,9 +14,5 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/my/user", MyUserRoute);
-
-app.get("/test", async (req: Request, res: Response) => {
-  res.json({ message: "Hello!" });
-});
 
 app.listen(3000, () => console.log("Successfully runs on localhost:3000"));

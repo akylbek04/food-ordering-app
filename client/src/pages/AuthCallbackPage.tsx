@@ -10,7 +10,7 @@ const AuthCallbackPage = () => {
   const userExist = useRef(false);
 
   useEffect(() => {
-    if (user?.sub && user?.email && userExist.current) {
+    if (user?.sub && user?.email && !userExist.current) {
       createUser({
         auth0Id: user.sub,
         email: user.email,
