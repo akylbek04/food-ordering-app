@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
 import MyUserRoute from "./routes/MyUserRoute";
+import MyRestaurantRoute from "./routes/MyRestaurantRoute";
 import { v2 as cloudinary } from "cloudinary";
 
 mongoose
@@ -26,5 +27,6 @@ app.use("/health", async (req: Request, res: Response) => {
 app.use(express.json());
 
 app.use("/api/my/user", MyUserRoute);
+app.use("/api/my/restaurant", MyRestaurantRoute);
 
 app.listen(3000, () => console.log("Successfully runs on localhost:3000"));
