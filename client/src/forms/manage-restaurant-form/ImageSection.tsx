@@ -26,7 +26,7 @@ const ImageSection = () => {
 
       <div className="flex flex-col gap-8 md:w-[50%]">
         {existingImageURL && (
-          <AspectRatio ratio={4/4}>
+          <AspectRatio ratio={16/8}>
             <img
               src={existingImageURL}
               className="rounded-md object-cover h-full w-full"
