@@ -22,11 +22,13 @@ const app = express();
 
 app.use(cors());
 
+app.use("/api/order/checkout/webhook", express.raw({ type: "*/*" }));
+
+app.use(express.json());
+
 app.use("/health", async (req: Request, res: Response) => {
   res.send({ message: "Health OK!" });
 });
-
-app.use(express.json());
 
 app.use("/api/my/user", MyUserRoute);
 app.use("/api/my/restaurant", MyRestaurantRoute);
