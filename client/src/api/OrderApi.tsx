@@ -23,26 +23,31 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export const useGetMyOrders = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const fecthOrders = async (): Promise<Order[]> => {
+  const getMyOrdersRequest = async (): Promise<Order[]> => {
     const accessToken = await getAccessTokenSilently();
 
-    const res = await fetch(`${API_BASE_URL}/api/order`, {
+    const response = await fetch(`${API_BASE_URL}/api/order`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    if (!res.ok) throw new Error("Failed to fetch orders");
+    if (!response.ok) {
+      throw new Error("Failed to get orders");
+    }
 
-    return res.json();
+    return response.json();
   };
 
-  const { data: orders, isLoading } = useQuery("fetchOrders", fecthOrders);
+  const { data: orders, isLoading } = useQuery(
+    "fetchMyOrders",
+    getMyOrdersRequest,
+    {
+      refetchInterval: 5000,
+    }
+  );
 
-  return {
-    isLoading,
-    orders,
-  };
+  return { orders, isLoading };
 };
 
 export const useCreateCheckoutSession = () => {
