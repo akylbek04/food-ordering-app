@@ -21,12 +21,14 @@ router.get(
   MyRestaurantController.getRestaurantOrder
 );
 
-router.get(
-  "/",
+router.patch(
+  "/order/:orderId/status",
   jwtCheck,
   jwtParse,
-  MyRestaurantController.getRestaurant
+  MyRestaurantController.updateOrderStatus
 );
+
+router.get("/", jwtCheck, jwtParse, MyRestaurantController.getRestaurant);
 
 router.post(
   "/",
