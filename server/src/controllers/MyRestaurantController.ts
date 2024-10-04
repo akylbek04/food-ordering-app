@@ -17,10 +17,38 @@ const getRestaurantOrder = async (req: Request, res: Response) => {
       .populate("user");
 
     res.json(orders);
-    
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Failed to fetch the order" });
+  }
+};
+
+const updateOrderStatus = async (req: Request, res: Response) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({ message: "No order found" });
+    }
+
+    const restaurant = await Restaurant.findById(order.restaurant);
+
+    if (restaurant?.user?._id.toString() !== req.userId) {
+      return res.status(401).send();
+    }
+
+    order.status = status;
+
+    await order.save();
+
+    res.status(200).json(order);
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Unable to update the status" });
   }
 };
 
@@ -110,4 +138,5 @@ export default {
   getRestaurant,
   updateRestaurant,
   getRestaurantOrder,
+  updateOrderStatus,
 };
