@@ -8,10 +8,10 @@ import { Button } from "./ui/button";
 import { useEffect } from "react";
 
 type Props = {
-  searchQuery: string;
   onSubmit: (formData: SearchForm) => void;
-  onReset?: () => void;
   placeHolder: string;
+  onReset?: () => void;
+  searchQuery?: string;
 };
 
 const formSchema = z.object({
